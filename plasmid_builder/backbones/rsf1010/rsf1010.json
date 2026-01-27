@@ -1,0 +1,11 @@
+{
+  "name": "RSF1010",
+  "accession": "M28829.1",
+  "description": "Broad-host-range plasmid RSF1010",
+  "Source": "NCBI GenBank",
+  "replication_genes": [
+    {"gene": "repA", "product": "replication protein A", "start": 5889, "end": 6729, "protein_id": "AAA26450.1"},
+    {"gene": "repB", "product": "replication protein B", "start": 4407, "end": 5378, "protein_id": "AAA26447.1"},
+    {"gene": "repC", "product": "replication protein C", "start": 6715, "end": 7566, "protein_id": "AAA26451.1"}
+  ]
+}
