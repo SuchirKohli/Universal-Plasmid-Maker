@@ -62,7 +62,12 @@ The origin of replication (`oriV`) is **not explicitly annotated as a discrete f
 >insert_sequence
 ATGCATGCATGC...
 ```
-
+### `Design.txt`
+```txt
+Multiple_Cloning_Site1, EcoRI
+Multiple_Cloning_Site2, GAATTC
+ATGCCCAGTACG..., Kanamycin
+```
 ## Environment Setup
 ```bash
 conda env create -f environment.yml
