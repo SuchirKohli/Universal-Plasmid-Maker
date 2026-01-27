@@ -45,3 +45,19 @@ def parse_design(path: str) -> Tuple[List[Tuple[str, str]], List[Tuple[str, str]
                 antibiotic_markers.append((left, right))
 
     return mcs_entries, antibiotic_markers
+
+def normalize_antibiotic_markers(antibiotic_entries):
+    """
+    antibiotic_entries: list of (sequence, antibiotic_name)
+    """
+    markers = []
+    for seq, antibiotic in antibiotic_entries:
+        seq = seq.strip().upper()
+        if not all(base in "ACGT" for base in seq):
+            raise ValueError(f"Invalid DNA sequence for antibiotic marker: {seq[:20]}...")
+        
+        markers.append({
+            "sequence": seq,
+            "antibiotic": antibiotic.strip()
+        })
+    return markers
