@@ -1,0 +1,6 @@
+Metadata-Version: 2.4
+Name: universal-plasmid-maker
+Version: 0.1.0
+Summary: Universal plasmid construction pipeline
+Author: Suchir Kohli
+Requires-Python: >=3.10

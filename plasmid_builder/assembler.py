@@ -100,6 +100,7 @@ def assemble_plasmid(
 
     plasmid.features = features
     plasmid.annotations["topology"] = "circular"
+    plasmid.annotations["molecule_type"] = "DNA"
 
     return plasmid
 
