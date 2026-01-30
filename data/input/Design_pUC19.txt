@@ -1,0 +1,9 @@
+Multiple_Cloning_Site1, BamHI
+Multiple_Cloning_Site2, GGATCC
+Multiple_Cloning_Site3, KpnI
+Multiple_Cloning_Site4, SmaI
+Multiple_Cloning_Site5, XbaI
+Multiple_Cloning_Site6, SAL1
+ATGCGTACGTAGCTAGCTAGCTAGCTAGCTAGCTAG, Ampicillin_Resistance
+ATGCGTAGCTAGCTAGCTAGCTAGCTAGCTAGCTA, Chloramphenicol_Resistance
+TCAGCTATGACCATGATTACG, Blue_White_Screening
