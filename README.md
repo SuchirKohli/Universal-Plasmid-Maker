@@ -46,7 +46,7 @@ Replication machinery is annotated based on **curated GenBank CDS annotations** 
 
 These genes constitute the minimal replication system required for autonomous plasmid replication across a broad range of bacterial hosts.
 
-The origin of replication (`oriV`) is **not explicitly annotated as a discrete feature in the GenBank record** for RSF1010 and is therefore **not modeled as a separate annotation**. Replication is represented via the required replication genes, consistent with available database annotations. It can be observed from the research paper [2] that there also exists other essential genes (plasmid mobilization, oriV and oriT).
+The origin of replication (`oriV`) is **not explicitly annotated as a discrete feature in the GenBank record** for RSF1010 and is therefore **not modeled as a separate annotation**. Replication is represented via the required replication genes, consistent with available database annotations. It can be observed from the research paper [4] that there also exists other essential genes (plasmid mobilization, oriV and oriT).
 
 ---
 
@@ -89,3 +89,5 @@ FEMS Microbiology Reviews
 3. Cock, P. J. A., et al.,
 Biopython: freely available Python tools for computational molecular biology and bioinformatics,
 Bioinformatics
+
+4. Scholz, et al.,  Compiete nucleotide sequence and gene organization of the broad-host-range plasmid RSFlOlO (1988)
