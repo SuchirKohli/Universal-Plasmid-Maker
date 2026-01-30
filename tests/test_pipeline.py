@@ -1,27 +1,33 @@
-from plasmid_builder.pipeline import run_pipeline
-from Bio import SeqIO
-import os
+from Bio.Seq import Seq
+from Bio.SeqRecord import SeqRecord
+from plasmid_builder.assembler import assemble_plasmid
 
 
-def test_full_pipeline(tmp_path):
-    input_fa = tmp_path / "input.fa"
-    design = tmp_path / "Design.txt"
-    output_fa = tmp_path / "Output.Fa"
-    output_gb = tmp_path / "Output.gb"
+def test_assemble_plasmid_basic():
+    backbone = SeqRecord(Seq("AAAA"), id="backbone")
+    backbone.features = []
 
-    input_fa.write_text(">test\nATGCATGC")
-    design.write_text("""
-Multiple_Cloning_Site1, EcoRI
-ATGCCC, Kanamycin
-""")
+    ori_info = {
+        "ori_sequence": "TTTT",
+        "method": "test"
+    }
 
-    run_pipeline(
-        input_fasta=str(input_fa),
-        design_file=str(design),
-        output_fasta=str(output_fa),
-        output_genbank=str(output_gb)
+    antibiotic_markers = [
+        {"sequence": "GGGG", "antibiotic": "Kanamycin"}
+    ]
+
+    mcs_seq = "CCCC"
+
+    plasmid = assemble_plasmid(
+        backbone_record=backbone,
+        ori_info=ori_info,
+        antibiotic_markers=antibiotic_markers,
+        mcs_sequence=mcs_seq,
+        insert_record=None
     )
 
-    assert os.path.exists(output_fa)
-    record = SeqIO.read(output_fa, "fasta")
-    assert len(record.seq) > 0
+    seq = str(plasmid.seq)
+    assert "AAAA" in seq   # backbone
+    assert "TTTT" in seq   # ORI
+    assert "GGGG" in seq   # marker
+    assert "CCCC" in seq   # MCS

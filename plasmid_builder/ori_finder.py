@@ -4,7 +4,7 @@ from scipy.signal import find_peaks
 
 
 GC_WINDOW = 500
-KMER = 9
+KMER = 8
 ENRICH_WINDOW = 500
 DIST_TOL = 1000
 ORI_WINDOW = 300   # final ORI extraction size

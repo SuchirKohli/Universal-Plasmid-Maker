@@ -7,9 +7,10 @@ from Bio.SeqFeature import SeqFeature, FeatureLocation
 
 def assemble_plasmid(
     backbone_record,
+    ori_info,
     antibiotic_markers,
     mcs_sequence,
-    insert_record
+    insert_record=None
 ):
     """
     Assemble final plasmid sequence.
@@ -22,7 +23,7 @@ def assemble_plasmid(
         Output of normalize_antibiotic_markers()
     mcs_sequence : str
         Concatenated MCS sequence
-    insert_record : SeqRecord
+    insert_record : SeqRecord or None
         Input insert DNA
 
     Returns
@@ -40,6 +41,21 @@ def assemble_plasmid(
     for feat in backbone_record.features:
         features.append(feat)
     cursor += len(backbone_record.seq)
+
+    # ORI
+    ori_seq = Seq(ori_info["ori_sequence"])
+    ori_len = len(ori_seq)
+
+    features.append(
+        SeqFeature(
+            FeatureLocation(cursor, cursor + ori_len),
+            type="rep_origin",
+            qualifiers={"note": "Predicted Origin of Replication",
+                        "method": ori_info.get("method", "ORI finder")}
+        )
+    )
+    seq_parts.append(ori_seq)
+    cursor += ori_len
 
     # Antibiotic markers
     for marker in antibiotic_markers:
@@ -75,19 +91,19 @@ def assemble_plasmid(
     seq_parts.append(mcs_seq)
     cursor += mcs_len
 
-    # Insert
-    insert_len = len(insert_record.seq)
+    # Optional insert (not used in this assignment)
+    if insert_record is not None:
+        seq_parts.append(insert_record.seq)
+        insert_len = len(insert_record.seq)
 
-    features.append(
-        SeqFeature(
-            FeatureLocation(cursor, cursor + insert_len),
-            type="insert",
-            qualifiers={"note": "Inserted DNA"}
+        features.append(
+            SeqFeature(
+                FeatureLocation(cursor, cursor + insert_len),
+                type="misc_feature",
+                qualifiers={"note": "Inserted sequence"}
+            )
         )
-    )
-
-    seq_parts.append(insert_record.seq)
-    cursor += insert_len
+        cursor += insert_len
 
     # Final plasmid
     final_seq = Seq("").join(seq_parts)

@@ -1,4 +1,4 @@
-LOCUS       Assembled_Plasmid       8729 bp    DNA     circular UNK 01-JAN-1980
+LOCUS       Assembled_Plasmid       9106 bp    DNA     circular UNK 01-JAN-1980
 DEFINITION  Universal plasmid constructed in silico.
 ACCESSION   Assembled_Plasmid
 VERSION     Assembled_Plasmid
@@ -19,13 +19,20 @@ FEATURES             Location/Qualifiers
                      /gene="repC"
                      /product="replication protein C"
                      /protein_id="AAA26451.1"
-     CDS             8685..8701
+     rep_origin      8685..8984
+                     /note="Predicted Origin of Replication"
+                     /method="GC skew + k-mer enrichment"
+     CDS             8985..9020
                      /note="antibiotic resistance marker"
-                     /antibiotic="Kanamycin"
-     misc_feature    8702..8713
+                     /antibiotic="Ampicillin_Resistance"
+     CDS             9021..9055
+                     /note="antibiotic resistance marker"
+                     /antibiotic="Chloramphenicol_Resistance"
+     CDS             9056..9076
+                     /note="antibiotic resistance marker"
+                     /antibiotic="Blue_White_Screening"
+     misc_feature    9077..9106
                      /note="Multiple Cloning Site"
-     insert          8714..8729
-                     /note="Inserted DNA"
 ORIGIN
         1 aactgcacat tcgggatatt tctctatatt cgcgcttcat cagaaaactg aaggaacctc
        61 cattgaatcg aactaatatt ttttttggtg aatcgcattc tgactggttg cctgtcagag
@@ -171,6 +178,12 @@ ORIGIN
      8461 aattgcggct gcgcttcgat ttgccggtgc ttctgtctgt ttcgcgcaaa tcctttctgc
      8521 gcgcgctcac aggccgtggt ccgggggtgt cggggccgcg acactcgctg cagagcttgc
      8581 cgccgccgca ggtggagctg acttcatccg cacacacgag ccgcgcccct tgcgcgacgg
-     8641 gctggcggta ttggcggcgc tgaaagaaac cgcaagaatt cgttatgccc agtacgttag
-     8701 cgaattcgaa ttcatgcatg catgcatgc
+     8641 gctggcggta ttggcggcgc tgaaagaaac cgcaagaatt cgtttggtgc actctcagta
+     8701 caatctgctc tgatgccgca tagttaagcc agccccgaca cccgccaaca cccgctgacg
+     8761 cgccctgacg ggcttgtctg ctcccggcat ccgcttacag acaagctgtg accgtctccg
+     8821 ggagctgcat gtgtcagagg ttttcaccgt catcaccgaa acgcgcgaga cgaaagggcc
+     8881 tcgtgatacg cctattttta taggttaatg tcatgataat aatggtttct tagacgtcag
+     8941 gtggcacttt tcggggaaat gtgcgcggaa cccctatttg tttaatgcgt acgtagctag
+     9001 ctagctagct agctagctag atgcgtagct agctagctag ctagctagct agctatcagc
+     9061 tatgaccatg attacgggat ccggatccgg tacccccggg tctaga
 //

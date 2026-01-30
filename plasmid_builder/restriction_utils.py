@@ -3,45 +3,50 @@ import re
 from Bio import Restriction
 from Bio.Seq import Seq
 from Bio.Restriction import RestrictionBatch
+import warnings
 
 def is_recognition_sequence(token: str) -> bool:
     """Return True if token looks like a DNA recognition site."""
     return bool(re.fullmatch(r"[ACGTacgt]+", token))
 
 
-def resolve_enzyme_or_site(token: str) -> dict:
-    """
-    Resolve a restriction enzyme name or a raw recognition site.
+import warnings
+from Bio.Restriction import Restriction, AllEnzymes
 
-    Returns a dictionary with keys:
-        type: 'enzyme' or 'site'
-        enzyme: enzyme name or None
-        site: recognition sequence (uppercase)
 
-    Raises:
-        ValueError if enzyme name is invalid
+def resolve_enzyme_or_site(token):
     """
+    Resolve a restriction enzyme name or raw restriction site.
+    Unknown enzymes raise a warning and return None.
+    """
+
     token = token.strip()
 
-    # Case 1: User directly provided recognition site (GAATTC)
-    if is_recognition_sequence(token):
+    # Try raw DNA site
+    if all(c in "ATGC" for c in token.upper()):
         return {
             "type": "site",
             "enzyme": None,
             "site": token.upper()
         }
 
-    # Case 2: User provided enzyme name (EcoRI)
-    try:
-        enzyme_class = getattr(Restriction, token)
-    except AttributeError:
-        raise ValueError(f"Unknown restriction enzyme: {token}")
+    # Try enzyme name (case-insensitive)
+    token_upper = token.upper()
+    for enzyme in AllEnzymes:
+        if enzyme.__name__.upper() == token_upper:
+            return {
+                "type": "enzyme",
+                "enzyme": enzyme.__name__,
+                "site": str(enzyme.site)
+            }
 
-    return {
-        "type": "enzyme",
-        "enzyme": token,
-        "site": str(enzyme_class.site)
-    }
+    # If nothing worked → warn and skip
+    warnings.warn(
+        f"Unknown restriction enzyme '{token}'. This MCS entry will be skipped.",
+        UserWarning
+    )
+    return None
+
 
 def resolve_mcs_entries(mcs_entries):
     """
@@ -50,8 +55,9 @@ def resolve_mcs_entries(mcs_entries):
     resolved = []
     for name, token in mcs_entries:
         info = resolve_enzyme_or_site(token)
-        info["name"] = name
-        resolved.append(info)
+        if info is not None:
+            info["name"] = name
+            resolved.append(info)
     return resolved
 
 def scan_sequence_for_restriction_sites(seq: Seq, resolved_mcs):

@@ -12,7 +12,7 @@ A modular bioinformatics pipeline to construct a **universal plasmid** *in silic
 The pipeline takes two inputs:
 
 1. **`Input.Fa`**  
-   A FASTA file containing the DNA sequence to be inserted into the plasmid.
+   A FASTA file containing the DNA sequence of the organism in which the plasmid needs to be inserted. 
 
 2. **`Design.txt`**  
    A text file specifying:
@@ -20,6 +20,7 @@ The pipeline takes two inputs:
    - antibiotic resistance marker(s), provided directly as DNA sequences along with the corresponding antibiotic name.
 
 The pipeline produces a fully assembled plasmid sequence containing:
+- origin of replication of the unknown organism,
 - annotated replication genes,
 - annotated antibiotic resistance marker(s),
 - annotated MCS and insert regions,
@@ -45,7 +46,7 @@ Replication machinery is annotated based on **curated GenBank CDS annotations** 
 
 These genes constitute the minimal replication system required for autonomous plasmid replication across a broad range of bacterial hosts.
 
-The origin of replication (`oriV`) is **not explicitly annotated as a discrete feature in the GenBank record** for RSF1010 and is therefore **not modeled as a separate annotation**. Replication is represented via the required replication genes, consistent with available database annotations.
+The origin of replication (`oriV`) is **not explicitly annotated as a discrete feature in the GenBank record** for RSF1010 and is therefore **not modeled as a separate annotation**. Replication is represented via the required replication genes, consistent with available database annotations. It can be observed from the research paper [2] that there also exists other essential genes (plasmid mobilization, oriV and oriT).
 
 ---
 

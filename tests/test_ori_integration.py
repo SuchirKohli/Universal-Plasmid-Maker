@@ -3,7 +3,7 @@ from Bio.SeqRecord import SeqRecord
 from plasmid_builder.assembler import assemble_plasmid
 
 
-def test_assemble_plasmid_basic():
+def test_ori_is_inserted():
     backbone = SeqRecord(Seq("AAAA"), id="backbone")
     backbone.features = []
 
@@ -12,22 +12,17 @@ def test_assemble_plasmid_basic():
         "method": "test"
     }
 
-    antibiotic_markers = [
-        {"sequence": "GGGG", "antibiotic": "Kanamycin"}
-    ]
-
-    mcs_seq = "CCCC"
+    antibiotic_markers = []
+    mcs_seq = ""
+    insert = SeqRecord(Seq("CCCC"), id="insert")
 
     plasmid = assemble_plasmid(
         backbone_record=backbone,
         ori_info=ori_info,
         antibiotic_markers=antibiotic_markers,
         mcs_sequence=mcs_seq,
-        insert_record=None
+        insert_record=insert
     )
 
-    seq = str(plasmid.seq)
-    assert "AAAA" in seq   # backbone
-    assert "TTTT" in seq   # ORI
-    assert "GGGG" in seq   # marker
-    assert "CCCC" in seq   # MCS
+    assert "TTTT" in str(plasmid.seq)
+    assert any(f.type == "rep_origin" for f in plasmid.features)
